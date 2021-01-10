@@ -47,5 +47,15 @@ router.post('/video', function(req, res, next) {
 
 })
 
+router.get('/download', function(req, res){
+  var request = req.query.url,
+      pattern = /\.googlevideo\.com\/videoplayback/;
+  if (request && pattern.test(request)) {
+      res.download(request); // Set disposition and send it.
+  } else {
+      res.send('The link you provided either not a valid url or it is not a valid YouTube download url');
+  }
+});
+
 
 module.exports = router;
