@@ -5,7 +5,7 @@ var request = require('request');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Youtube Downloader Web App' });
+    res.render('index', { title: 'HomePage - The Youtube Downloader' });
 });
 
 // convert to human readable format
@@ -35,11 +35,11 @@ router.post('/video', function(req, res, next) {
                         formats.push(item);
                     }
                 });
-                res.render('listvideo', {meta: {id: info.id, formats: formats}});
+                res.render('listvideo', {meta: {id: info.id, formats: formats}, title: 'Video List - The Youtube Downloader'});
             })
         }
         else {
-            res.render('listvideo', {error: 'The link you provided either not a valid url or it is not acceptable', title: 'Youtube Downloader Web App'});
+            res.render('listvideo', {error: 'The link you provided either not a valid url or it is not acceptable', title: 'Oops - The Youtube Downloader'});
         }
     });
 
