@@ -16,6 +16,11 @@ function bytesToSize(bytes) {
    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 };
 
+const isUrl = string => {
+      try { return Boolean(new URL(string)); }
+      catch(e){ return false; }
+  }
+
 
 router.post('/video', function(req, res, next) {
     var url = req.body.url,
@@ -48,9 +53,9 @@ router.post('/video', function(req, res, next) {
 })
 
 router.get('/download', function(req, res){
-  var request = req.query.url,
+  var request = decodeURIComponent(req.query.url),
       pattern = /\.googlevideo\.com\/videoplayback/;
-  if (request && pattern.test(request)) {
+  if (request && isUrl(request) && pattern.test(request)) {
       res.download(request); // Set disposition and send it.
   } else {
       res.send('The link you provided either not a valid url or it is not a valid YouTube download url');
