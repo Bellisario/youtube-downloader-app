@@ -23,7 +23,6 @@ router.post('/video', function(req, res, next) {
         pattern = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
 
     request.get(url, function (err, resp, body) {
-        res.render('index', { title: 'Youtube Downloader Web App' });
         // check if it is valid url
         if(pattern.test(resp.request.uri.href)) {
             ytdl.getInfo(url, ['--youtube-skip-dash-manifest'], function(err, info) {
@@ -40,7 +39,7 @@ router.post('/video', function(req, res, next) {
             })
         }
         else {
-            res.render('listvideo', {error: 'The link you provided either not a valid url or it is not acceptable'});
+            res.render('listvideo', {error: 'The link you provided either not a valid url or it is not acceptable', title: 'Youtube Downloader Web App'});
         }
     });
 
