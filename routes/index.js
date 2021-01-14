@@ -53,7 +53,14 @@ router.post('/video', function(req, res, next) {
 
 })
 
-router.get('/download', function(req, res){
+var downloadCors = {
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}
+
+router.get('/download', cors(downloadCors), function(req, res){
   var request = decodeURIComponent(req.query.url),
       pattern = /\.googlevideo\.com\/videoplayback/;
   if (request && isUrl(request) && pattern.test(request)) {
