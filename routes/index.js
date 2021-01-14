@@ -64,7 +64,6 @@ router.get('/download', cors(downloadCors), function(req, res){
   var request = decodeURIComponent(req.query.url),
       pattern = /\.googlevideo\.com\/videoplayback/;
   if (request && isUrl(request) && pattern.test(request)) {
-      res.header("Access-Control-Allow-Origin", "*");
       res.render('download', {url: request, title: 'Download - The Youtube Downloader'});
   } else {
       res.send('The link you provided either not a valid url or it is not a valid YouTube download url');
