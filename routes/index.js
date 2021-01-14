@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ytdl = require('youtube-dl');
 var request = require('request');
+var cors = require('cors');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -56,7 +57,7 @@ router.get('/download', function(req, res){
   var request = decodeURIComponent(req.query.url),
       pattern = /\.googlevideo\.com\/videoplayback/;
   if (request && isUrl(request) && pattern.test(request)) {
-      res.setHeader('Access-Control-Allow-Origin', 'self, https://*.googlevideo.com');
+      res.header("Access-Control-Allow-Origin", "*");
       res.render('download', {url: request, title: 'Download - The Youtube Downloader'});
   } else {
       res.send('The link you provided either not a valid url or it is not a valid YouTube download url');
