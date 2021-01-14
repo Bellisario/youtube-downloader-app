@@ -56,7 +56,7 @@ router.get('/download', function(req, res){
   var request = decodeURIComponent(req.query.url),
       pattern = /\.googlevideo\.com\/videoplayback/;
   if (request && isUrl(request) && pattern.test(request)) {
-      res.send('<a id="video" href="' + request + '" download="the_youtube_downloader"><script>document.getElementById("video").click()</script>');
+      res.render('download', {url: request, title: 'Download - The Youtube Downloader'});
   } else {
       res.send('The link you provided either not a valid url or it is not a valid YouTube download url');
   }
